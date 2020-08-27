@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <style>
+      .logo {
+        display: block;
+        width: 120px;
+      }
+      header {
+        padding-top: 2rem;
+      }
+      .spacer {
+        padding: 25px;
+      }
+      .system-status {
+        background-color: #ffffff;
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 25px;
+        border-radius: 15px;
+      }
+      .operational {
+        background: #56be8e;
+        color: white;
+      }
+      .degraded {
+        background: #dad263;
+        color: rgb(0, 0, 0);
+      }
+      .ping-graph {
+        height: 200px;
+        margin-top: 20px;
+      }
+      .issues {
+        padding-top: 6rem;
+        margin-bottom: 6rem;
+      }
+      .action {
+        font-weight: bold;
+        color: rgb(54, 54, 54);
+      }
+      .align-right {
+        text-align: right;
+      }
+      .graph-box {
+        border-radius: 15px;
+        padding: 10px;
+        border: 1px solid rgb(138, 138, 138);
+        margin: 0;
+      }
+      .btn {
+        border: 1px solid #c777d1;
+      }
+      .btn:hover {
+        background: #c777d1;
+        color: white;
+      }
+      .service {
+          border: 1px solid #000000;
+          padding-bottom: 2px;
+          margin-right: 2px;
+          border-radius: 12px;
+      }
+      footer {
+          padding-top: 5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="row">
+          <div class="col-md-6"><img class="logo" src="/logo.png" /></div>
+          <div class="col-md-6 align-right">
+            <p>
+              Logged in as: <%= red.auth.user %> <br /><a href="/admin/newuser" class="btn"
+                >New User</a
+              >&nbsp;<a href="/admin/changepassword" class="btn">Change Password</a>
+            </p>
+          </div>
+        </div>
+      </header>
+      <h1>Admin Panel</h1>
+      <hr />
+        <h3>New Issue</h3>
+        <form action="/issue/new" method="POST">
+            Service: <select class="form-control" name="service">
+                <% services.forEach(service => { %>
+                    <option value="<%= service.name %>"><%= service.name %></option>
+                    <% }) %>                
+              </select><br />
+            Name: <input type="text" class="form-control" name="name" required /><br />
+            Solved: <select class="form-control" name="issolved">
+                <option value="true">True</option>
+                    <option value="false">False</option>              
+              </select><br />
+              Action 1: <input type="text" class="form-control" name="action" required /><br />
+              Action 1 Description: <input type="text" class="form-control" name="description" required /><br />
+            <button class="btn" type="submit">CREATE ISSUE</button>
+        </form>
+ 
+      <footer class="position: bottom;">
+        <div class="row">
+          <div class="col-md-6 align-left"><a href="/admin/newservice" class="btn">New Service</a>&nbsp;<a href="/admin/newissue" class="btn">New Issue</a>&nbsp;<a href="https://github.com/akshit-wtf/aukaat" class="btn">GitHub</a></div>
+          <div class="col-md-6 align-right">Powered By Aukaat</div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

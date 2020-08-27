@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script>
+
+          window.onload = function () {
+            <% systems.forEach(system => { %>
+          var chart = new CanvasJS.Chart("<%= system.name %>chart", {
+          	animationEnabled: true,
+          	theme: "light2",
+          	title:{
+          		text: "<%= system.name %> Response Time"
+              },
+              axisX:{
+      	labelFormatter: function(e){
+      		return "";
+      	}
+      },
+          	data: [{
+          		type: "line",
+                	indexLabelFontSize: 16,
+          		dataPoints: [<% system.uptime.forEach(ping => { %>
+              {y: <%= ping.ping %>, label: "<%= ping.time %>"},
+              <% }) %>]
+          	}]
+          });
+          chart.render();
+          <% }) %>
+          }
+    </script>
+    <style>
+      .logo {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 320px;
+        padding: 5%;
+      }
+      .system-status {
+        background-color: #ffffff;
+        padding: 10px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 25px;
+        border-radius: 15px;
+      }
+      .operational {
+        background: #56be8e;
+        color: white;
+      }
+      .degraded {
+        background: #dad263;
+        color: rgb(0, 0, 0);
+      }
+      .ping-graph {
+        height: 200px;
+        margin-top: 20px;
+      }
+      .issues {
+        padding-top: 6rem;
+        margin-bottom: 6rem;
+      }
+      .action {
+        font-weight: bold;
+        color: rgb(54, 54, 54);
+      }
+      .align-right {
+        text-align: right;
+      }
+      .graph-box {
+          border-radius: 15px;
+        padding: 10px;
+        border: 1px solid rgb(138, 138, 138);
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <img class="logo" src="./logo.png" />
+          <% var total = 0; for(var i = 0; i < systems.length; i++) { total +=
+          parseInt(systems[i].ping); } var avg = total / systems.length; %>
+          <div
+            class="system-status<% if (avg <= 500) { %> operational<% } %><% if (avg > 500) { %> degraded<% } %>"
+          >
+            <% if (avg <= 500) { %> All Systems Operational <% } %> <% if (avg >
+            500) { %> Degraded Performance <% } %>
+          </div>
+          <h1>System Metrics</h1>
+          <div class="graph-box">
+            <% systems.forEach(system => { %>
+            <div class="ping-graph" id="<%= system.name %>chart"></div>
+            <% }) %>
+          </div>
+          <section class="issues">
+            <h1>Past Incidents</h1>
+            <br />
+            <% issues.forEach(issue => { %>
+            <h4><%= moment(issue.date).format('ll') %></h4>
+            <hr />
+            <% if(!issue.issues[0]) { %>
+            <p>No issues recorded during this time.</p>
+            <% } else { %> <% issue.issues.forEach(i => { %>
+            <h5>
+              <%= i.name %> - <%= i.service %> <% if(!i.status) { %>(Closed)<% }
+              %>
+            </h5>
+            <br />
+            <% i.actions.forEach(a => { %>
+            <span class="action"><%= a.action %></span> -
+            <p style="display: inline"><%= a.description %></p>
+            <br />
+            <span class="badge"><%= moment(a.time).format('LLL') %></span><br />
+            <% }) %>
+            <br />
+            <% }) %> <% } %> <% }) %>
+          </section>
+          <footer>
+            <div class="row">
+              <div class="col-md-6 align-left"></div>
+              <div class="col-md-6 align-right">Powered By Aukaat</div>
+            </div>
+          </footer>
+        </div>
+      </div>
+    </div>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  </body>
+</html>
