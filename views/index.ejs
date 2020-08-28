@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
+    
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/style.css">
     <script>
 
           window.onload = function () {
@@ -34,52 +36,6 @@
           <% }) %>
           }
     </script>
-    <style>
-      .logo {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 320px;
-        padding: 5%;
-      }
-      .system-status {
-        background-color: #ffffff;
-        padding: 10px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        font-size: 25px;
-        border-radius: 15px;
-      }
-      .operational {
-        background: #56be8e;
-        color: white;
-      }
-      .degraded {
-        background: #dad263;
-        color: rgb(0, 0, 0);
-      }
-      .ping-graph {
-        height: 200px;
-        margin-top: 20px;
-      }
-      .issues {
-        padding-top: 6rem;
-        margin-bottom: 6rem;
-      }
-      .action {
-        font-weight: bold;
-        color: rgb(54, 54, 54);
-      }
-      .align-right {
-        text-align: right;
-      }
-      .graph-box {
-          border-radius: 15px;
-        padding: 10px;
-        border: 1px solid rgb(138, 138, 138);
-        margin: 0;
-      }
-    </style>
   </head>
   <body>
     <div class="container">
@@ -94,6 +50,22 @@
             <% if (avg <= 500) { %> All Systems Operational <% } %> <% if (avg >
             500) { %> Degraded Performance <% } %>
           </div>
+          <main>
+            <h1>Service Status</h1>
+            <section>              
+                <div class="row">
+                <% systems.forEach(service => { %>
+                  <div class="col-md-6">
+                      <div class="status-box">
+                        <div class="con <% if (service.ping <= 500) { %> operational<% } %><% if (service.ping > 500) { %> degraded<% } %>">
+                          <% if (service.ping <= 500) { %> <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="check" class="svg-inline--fa fa-check fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg><% } %><% if (service.ping > 500) { %> <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="minus" class="svg-inline--fa fa-minus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg><% } %>
+                        </div>
+                        <span class="stat"><%= service.name %></span>
+                      </div>
+                  </div>                
+              <% }) %>
+            </div>
+            </section>
           <h1>System Metrics</h1>
           <div class="graph-box">
             <% systems.forEach(system => { %>
@@ -110,8 +82,8 @@
             <p>No issues recorded during this time.</p>
             <% } else { %> <% issue.issues.forEach(i => { %>
             <h5>
-              <%= i.name %> - <%= i.service %> <% if(!i.status) { %>(Closed)<% }
-              %>
+              <a href="/issues/<%= i.url %>"><%= i.name %> - <%= i.service %> <% if(!i.status) { %>(Closed)<% }
+              %></a>
             </h5>
             <br />
             <% i.actions.forEach(a => { %>
