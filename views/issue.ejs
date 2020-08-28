@@ -89,28 +89,20 @@
       </header>
       <h1>Admin Panel</h1>
       <hr />
-        <h3>Edit Issue</h3>
-        <form action="/issue/edit" method="POST">
-            Issue: <select class="form-control" name="service">
-                <% issues.forEach(issue => { %>
-                    <% issue.issues.forEach(i => { %>
-                    <option value="<%= i.name %>"><%= i.name %></option>
-                     <% }) %>
-                    <% }) %>                
-              </select><br />
-            Name: <input type="text" class="form-control" required /><br />
-            Solved: <select class="form-control" name="issolved">
-                <option value="true">True</option>
-                    <option value="false">False</option>              
-              </select><br />
-              Add Action: <input type="text" class="form-control" required /><br />
-              Add Action Description: <input type="text" class="form-control" required /><br />
-            <button class="btn" type="submit">EDIT ISSUE</button>
-        </form>
- 
-      <footer class="position: bottom;">
+        <h3>Issue Name: <%= issue.name %></h3>
+        <h3>Service Affected: <%= issue.service %></h3>
+        <h3>Solved: <%= issue.status %></h3>
+        <h3>Actions:</h3>
+        <div style="border: 1px solid #000000; border-radius: 15px; padding-left: 15px;">
+        <% issue.actions.forEach(a => { %>
+          <h5><%= a.action %></h5>
+          <h6><%= moment(a.date).format('LT') %></h6>
+          <p><%= a.description %></p>
+        <% }) %>
+      </div>
+      <footer>
         <div class="row">
-          <div class="col-md-6 align-left"><a href="/admin/newservice" class="btn">New Service</a>&nbsp;<a href="/admin/newissue" class="btn">New Issue</a>&nbsp;<a href="https://github.com/akshit-wtf/aukaat" class="btn">GitHub</a></div>
+          <div class="col-md-6 align-left"><a href="/admin/service/new" class="btn">New Service</a>&nbsp;<a href="/admin/newissue" class="btn">New Issue</a>&nbsp;<a href="https://github.com/akshit-wtf/aukaat" class="btn">GitHub</a></div>
           <div class="col-md-6 align-right">Powered By Aukaat</div>
         </div>
       </footer>

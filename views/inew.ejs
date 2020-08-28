@@ -90,7 +90,7 @@
       <h1>Admin Panel</h1>
       <hr />
         <h3>New Issue</h3>
-        <form action="/issue/new" method="POST">
+        <form action="/admin/issues/new" method="POST">
             Service: <select class="form-control" name="service">
                 <% services.forEach(service => { %>
                     <option value="<%= service.name %>"><%= service.name %></option>

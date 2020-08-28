@@ -93,7 +93,7 @@
         <div class="row">
             <% services.forEach(service => { %>
             <div class="col-md-3 service">
-                <h5 style="padding-top: 7px;"><a href="/admin/<%= service.name %>"><%= service.name %></a></h5> <p style="font-size: 1rem;">Latency: <%= service.ping %></p>
+                <h5 style="padding-top: 7px;"><a href="/admin/services/<%= service.name %>"><%= service.name %></a></h5> <p style="font-size: 1rem;">Latency: <%= service.ping %></p>
                 <hr />
             </div>
             <% }) %>
