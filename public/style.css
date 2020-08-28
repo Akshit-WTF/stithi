@@ -1,0 +1,74 @@
+.logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 320px;
+  padding: 5%;
+}
+.system-status {
+  background-color: #ffffff;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 25px;
+  border-radius: 15px;
+}
+.operational {
+  background: #56be8e;
+  color: white;
+}
+.degraded {
+  background: #dad263;
+  color: rgb(0, 0, 0);
+}
+.ping-graph {
+  height: 200px;
+  margin-top: 20px;
+}
+.issues {
+  padding-top: 6rem;
+  margin-bottom: 6rem;
+}
+.action {
+  font-weight: bold;
+  color: rgb(54, 54, 54);
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.graph-box {
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid rgb(138, 138, 138);
+  margin: 0;
+}
+.con svg {
+  width: 25px;
+  height: 25px;
+}
+.status-box {
+  border: 1px solid rgb(138, 138, 138);
+  margin: 10px;
+  padding-left: 10px;
+  border-radius: 15px;
+}
+
+.stat {
+  padding: 10px;
+  padding-left: 10px;
+  outline: none;
+  font-weight: bold;
+  font-size: large;
+  display: inline-block;
+}
+
+.con {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  padding: 2px;
+}
